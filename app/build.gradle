@@ -1,0 +1,117 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.otb.githubissues"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'SERVER_BASE_URL', '"https://api.github.com"'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            buildConfigField 'String', 'SERVER_BASE_URL', '"https://api.github.com"'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    def koin_version = "2.1.6"
+    //Unit testing
+    testImplementation rootProject.ext.junit
+    testImplementation rootProject.ext.junitJupiter
+    androidTestImplementation rootProject.ext.androidTestRunner
+    androidTestImplementation rootProject.ext.espresso
+    testImplementation rootProject.ext.mockito
+    androidTestImplementation rootProject.ext.mockitoAndroid
+    implementation rootProject.ext.supportTestRules
+
+    //Support Library & UI
+    implementation rootProject.ext.constraintLayout
+    implementation rootProject.ext.supportCompatV7
+    implementation rootProject.ext.supportDesign
+    implementation rootProject.ext.supportCardView
+    implementation rootProject.ext.supportCustomTabs
+    implementation rootProject.ext.glide
+    implementation rootProject.ext.sdp
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
+
+    //Jetpack
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+    implementation 'android.arch.paging:runtime:2.1.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    def room_version = "2.2.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    // RxJava lib
+    implementation rootProject.ext.rxAndroid
+    implementation rootProject.ext.rxJava
+    implementation rootProject.ext.rxJavaRetrofitAdapter
+
+    //Retrofit
+    implementation(rootProject.ext.retrofit) {
+        exclude module: 'okhttp'
+    }
+    implementation rootProject.ext.okHttp
+    implementation rootProject.ext.okHttpLoggingInterceptor
+    implementation rootProject.ext.retrofitGsonConverter
+    implementation rootProject.ext.retrofitScalarsConverter
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
+    //Google and Firebase
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8'
+
+    //Dependancy Injection
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+    //Others
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.otb.utility:preference:0.0.1'
+}

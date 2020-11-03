@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Github Issues</string>
+    <string name="owner_name">Owner name</string>
+    <string name="repo_name">Repository name</string>
+    <string name="submit">Submit</string>
+    <string name="enter_github_info">Enter GitHub information to view issues</string>
+    <string name="title_activity_issues">IssuesActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="enter_github_owner_name">Enter GitHub owner name</string>
+    <string name="enter_repository_name">Enter GitHub repository name</string>
+    <string name="pr_number_created_by_user">#%s created by %s</string>
+
+    <string-array name="issue_status">
+        <item>Open</item>
+        <item>Closed</item>
+    </string-array>
+</resources>

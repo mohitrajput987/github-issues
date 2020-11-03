@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="issue"
+            type="com.otb.githubissues.scene.issues.IssuesModels.Issue" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:cardElevation="@dimen/_2sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{issue.title}"
+                android:textColor="@color/primaryText"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="This is the title of my pull request which would be merged" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:text="@{@string/pr_number_created_by_user(issue.number, issue.userName)}"
+                android:textColor="@color/gray"
+                android:textSize="13sp"
+                tools:text="#243 created by mohitrajput987" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:text="@{issue.patchUrl}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                tools:text="https://github.com/mohitrajput987/564.path" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

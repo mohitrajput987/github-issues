@@ -16,6 +16,6 @@ interface IssuesContract {
     }
 
     interface Repository {
-        suspend fun searchIssues(githubOwner: String, repoName: String, state: String): DataResult<List<IssuesModels.Issue>>
+        suspend fun searchIssues(githubOwner: String, repoName: String, state: String, pageNumber: Int): DataResult<List<IssuesModels.Issue>>
     }
 }

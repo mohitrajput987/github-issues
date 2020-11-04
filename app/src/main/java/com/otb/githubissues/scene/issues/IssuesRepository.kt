@@ -14,7 +14,7 @@ class IssuesRepository(private val gitHubApiService: GitHubApiService, private v
     override suspend fun searchIssues(githubOwner: String, repoName: String, state: String, pageNumber: Int): DataResult<List<IssuesModels.Issue>> {
         val storedIssues = issuesDao.getIssues(githubOwner, repoName, state, ((pageNumber - 1) * PAGE_SIZE), PAGE_SIZE)
         if (storedIssues.isNotEmpty()) {
-            val refreshInterval = 30 * 60 * 60 * 1000
+            val refreshInterval = 30 * 60 * 1000
             val oldestIssue = storedIssues.minBy { it.storedAt }
             if (System.currentTimeMillis() - oldestIssue!!.storedAt < refreshInterval) {
                 return DataResult.DataSuccess(IssuesResponseToIssuesMapper().mapFromDatabase(storedIssues))

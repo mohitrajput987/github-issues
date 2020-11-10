@@ -20,7 +20,7 @@ class IssuesDataSource(private val repository: IssuesContract.Repository, privat
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, IssuesModels.Issue>) {
         scope.launch {
             progressLiveStatus.postValue(ProgressStatus.Loading)
-            when (val dataResult = repository.searchIssues(githubOwner, repoName, state)) {
+            when (val dataResult = repository.searchIssues(githubOwner, repoName, state, 1)) {
                 is DataResult.DataSuccess -> {
                     progressLiveStatus.postValue(ProgressStatus.Success)
                     callback.onResult(dataResult.data, null, 2)
@@ -31,7 +31,16 @@ class IssuesDataSource(private val repository: IssuesContract.Repository, privat
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, IssuesModels.Issue>) {
-
+        scope.launch {
+            progressLiveStatus.postValue(ProgressStatus.Loading)
+            when (val dataResult = repository.searchIssues(githubOwner, repoName, state, params.key)) {
+                is DataResult.DataSuccess -> {
+                    progressLiveStatus.postValue(ProgressStatus.Success)
+                    callback.onResult(dataResult.data, params.key + 1)
+                }
+                is DataResult.DataError -> progressLiveStatus.postValue(ProgressStatus.Error(dataResult.errorMessage))
+            }
+        }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, IssuesModels.Issue>) {

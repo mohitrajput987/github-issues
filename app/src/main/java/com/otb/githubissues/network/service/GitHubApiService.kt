@@ -12,5 +12,5 @@ import retrofit2.http.Query
 interface GitHubApiService {
 
     @GET("repos/{org_name}/{repo_name}/issues")
-    suspend fun fetchIssues(@Path("org_name") organizationName: String, @Path("repo_name") repositoryName: String, @Query("state") state: String): Response<List<IssuesModels.IssuesResponse>>
+    suspend fun fetchIssues(@Path("org_name") organizationName: String, @Path("repo_name") repositoryName: String, @Query("state") state: String, @Query("page") page: Int, @Query("per_page") perPage: Int = 20): Response<List<IssuesModels.IssuesResponse>>
 }
